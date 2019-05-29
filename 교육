@@ -16,4 +16,19 @@ https://github.com/TheOpenCloudengine/uEngine-cloud/wiki
   2. docker images : 도커이미지가 어떤것들이 있는지 확인
   3. docekr run -p 8080:80 도커이미지이름 : 도커이미지 실행시킴
   4. docker build -t gcr.io/프로젝트id/이미지로올릴이름:버전 : 클러스터저장소에 올림 push 함.
-  
+
+
+4. 도커이미지를 쿠버네티스로 올리기
+  kubectl run helloworld --image=gcr.io/uengine-istio-test2/helloworld:v1
+  kubectl get deploy
+  kubectl expose deployment helloworld --port=80 --type=LoadBalancer
+  kubectl get svc -w
+  (위의 명령 결과의 EXTERNAL IP 부분 참고, 웹브라우저에서 접속)
+  kubectl get pod
+  kubectl delete po --all
+  (포드를 지웠지만 아까 웹브라우저에 접속하여 계속 서비스가 올라와 있음을 확인)
+  kubectl scale deploy helloworld --replicas=3
+  kubectl get po    #pod 개수가 3개로 확장됨을 확인
+  kubectl delete po --all   #pod 를 지워도 다시 3개로 유지됨을 확인
+  kubectl get po  
+  (포드를 아무리 지워도 브라우저에 서비스는 계속 유지됨을 확인)
