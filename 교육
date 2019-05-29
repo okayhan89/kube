@@ -1,2 +1,19 @@
 1. 스크립트가 들어가 있는  URL
 https://github.com/TheOpenCloudengine/uEngine-cloud/wiki
+
+2. docker 파일의 이해
+  Dockerfile
+  FROM python:2.7-slim
+  WORKDIR /app      --> 해당 건은 docker exec it 실제로 docker container 안에 들어가 /app 을 만들어라. 의 의미이다.
+  ADD . /app       --> 해당 건은 현재 디렉토리에 있는 것을 docker container 안에 /app 에 넣어라 . 의 의미이다.
+  RUN pip install --trusted-host pypi.python.org -r requirements.txt
+  ENV NAME World
+  CMD ["python", "app.py"]
+
+
+3. docker 명렁어 정리
+  1. docker build -t 도커이미지이름 올릴dockerfile위치 : 도커이미지를 빌드하여 올려놓음.
+  2. docker images : 도커이미지가 어떤것들이 있는지 확인
+  3. docekr run -p 8080:80 도커이미지이름 : 도커이미지 실행시킴
+  4. docker build -t gcr.io/프로젝트id/이미지로올릴이름:버전 : 클러스터저장소에 올림 push 함.
+  
